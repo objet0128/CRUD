@@ -9,8 +9,21 @@ readme = "README.md"
 python = "^3.10"
 fastapi = "^0.85.1"
 sqlalchemy = "^1.4.42"
+black = "^22.10.0"
+flake8 = "^5.0.4"
+mypy = "^0.982"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.flake8]
+max-line-length = 88
+max-complexity = 20
+
+[tool.mypy]
+ignore_missing_imports = true
