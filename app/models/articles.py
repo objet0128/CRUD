@@ -11,4 +11,5 @@ class Article(Base, BaseMixin):
     content = Column(String)
     owner_id = Column(Integer, ForeignKey("user.id"))
     article_id = Column(Integer, ForeignKey("article.id"))
-    user = relationship("User", back_populates="article")
+    user = relationship("User", back_populates="articles")
+    comments = relationship("Comment", back_populates="article")
