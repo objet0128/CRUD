@@ -1,21 +1,21 @@
 import uvicorn as uvicorn
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
-from app.crud import articles, users
+from app.crud import articles, comments, users
 from app.db.base_class import Base
 from app.db.session import engine, get_db
-from app.schemas.articles import Article
-from app.schemas.users import User, UserCreate
-
+from app.models import Article, Comment, User
+from app.schemas.articles import ArticleCreate, ArticleResponse
+from app.schemas.comments import CommentCreate, CommentResponse
+from app.schemas.users import UserCreate, UserResponse
 
 Base.metadata.create_all(bind=engine)
-
 
 app = FastAPI()
 
 
-@app.post("/users/", response_model=User)
+@app.post("/users/", response_model=UserResponse)
 def create_user(user: UserCreate, db: Session = Depends(get_db)) -> User:
     exist_user = users.get_user_by_email(db, email=user.email)
     if exist_user:
@@ -23,13 +23,13 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)) -> User:
     return users.create_user(db=db, user=user)
 
 
-@app.get("/users/", response_model=list[User])
+@app.get("/users/", response_model=list[UserResponse])
 def get_user_list(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)) -> list[User]:
     user_list = users.get_users(db, skip=skip, limit=limit)
     return user_list
 
 
-@app.get("/users/{user_id}", response_model=User)
+@app.get("/users/{user_id}", response_model=UserResponse)
 def get_user(user_id: int, db: Session = Depends(get_db)) -> User:
     db_user = users.get_user(db, user_id=user_id)
     if db_user is None:
@@ -37,9 +37,44 @@ def get_user(user_id: int, db: Session = Depends(get_db)) -> User:
     return db_user
 
 
-@app.get("/articles/", response_model=list[Article])
+@app.post("/article/{user_id}/", response_model=ArticleResponse)
+def create_article(user_id: int, article: ArticleCreate, db: Session = Depends(get_db)) -> Article:
+    return articles.create_article(user_id, db, article)
+
+
+@app.get("/articles/", response_model=list[ArticleResponse])
 def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)) -> list[Article]:
-    articles.get_articles(db, skip=skip, limit=limit)
+    return articles.get_articles(db, skip=skip, limit=limit)
+
+
+@app.get("/{user_id}/articles/", response_model=list[ArticleResponse])
+def get_articles_by_user_id(user_id: int, db: Session = Depends(get_db)) -> list[Article]:
+    return articles.get_article_by_user_id(user_id=user_id, db=db)
+
+
+@app.delete("/article/{article_id}")
+def delete_article(article_id: int, db: Session = Depends(get_db)):
+    return articles.delete_article_by_id(article_id=article_id, db=db)
+
+
+@app.put("/article/{article_id}", response_model=ArticleResponse)
+def update_article(article_id: int, article: ArticleCreate, db: Session = Depends(get_db)):
+    return articles.update_article(db=db, article_id=article_id, article=article)
+
+
+@app.post("/comment", response_model=CommentResponse)
+def create_comment(article_id: int, user_id: int, comment: CommentCreate, db: Session = Depends(get_db)) -> Comment:
+    return comments.create_comment(article_id=article_id, user_id=user_id, comment=comment, db=db)
+
+
+@app.get("/comment/{comment_id}", response_model=CommentResponse)
+def get_comment_by_author(author_id: int, db: Session = Depends(get_db)) -> list[Comment]:
+    return comments.get_comments_by_author(author_id, db)
+
+
+@app.delete("/comment/{comment_id}")
+def delete_comment(comment_id: int, db: Session = Depends(get_db)):
+    return comments.delete_comment(comment_id, db)
 
 
 if __name__ == "__main__":
