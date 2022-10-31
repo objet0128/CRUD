@@ -24,8 +24,8 @@ def get_article_by_user_id(db: Session, user_id: int) -> list[Article]:
     return db.query(Article).filter(Article.user_id == user_id).all()
 
 
-def delete_article_by_id(id: int, db: Session) -> int:
-    article = db.query(Article).filter(Article.id == id)
+def delete_article_by_id(article_id: int, db: Session) -> int:
+    article = db.query(Article).filter(Article.id == article_id)
     if not article:
         return 0
     article.delete()
