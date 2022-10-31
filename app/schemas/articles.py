@@ -10,8 +10,9 @@ class ArticleCreate(ArticleBase):
     ...
 
 
-class Article(ArticleBase):
-    id: int
+class ArticleResponse(ArticleBase):
+    id: int | None = None
+    user_id: int | None = None
 
     class Config:
         orm_mode = True
