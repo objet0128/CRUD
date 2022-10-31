@@ -2,3 +2,4 @@
 .idea/*.xml
 *.iml
 .mypy_cache
+__pycache__/
