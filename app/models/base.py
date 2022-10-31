@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, Column, Integer
+from sqlalchemy import Column, DateTime, Integer
 
 
 class BaseMixin:
