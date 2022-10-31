@@ -12,7 +12,7 @@ class CommentCreate(CommentBase):
 class CommentResponse(CommentBase):
     id: int
     article_id: int | None = None
-    author_id: int | None = None
+    user_id: int | None = None
 
     class Config:
         orm_mode = True
