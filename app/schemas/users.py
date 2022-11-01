@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from app.schemas.articles import ArticleResponse
+from app.schemas.comments import CommentResponse
 
 
 class UserBase(BaseModel):
@@ -15,6 +16,7 @@ class UserCreate(UserBase):
 class UserResponse(UserBase):
     id: int
     articles: list[ArticleResponse] = []
+    comments: list[CommentResponse] = []
 
     class Config:
         orm_mode = True
