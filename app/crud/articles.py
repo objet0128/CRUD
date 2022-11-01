@@ -5,7 +5,7 @@ from app.schemas.articles import ArticleCreate
 
 
 def create_article(user_id: int, db: Session, article: ArticleCreate) -> Article:
-    db_article = Article(user_id=user_id, title=article.title, content=article.content)
+    db_article = Article(**article.dict(), user_id=user_id)
     db.add(db_article)
     db.commit()
     db.refresh(db_article)

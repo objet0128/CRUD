@@ -12,7 +12,7 @@ def create_comment(article_id: int, user_id: int, comment: CommentCreate, db: Se
 
 
 def get_comments_by_author(author_id: int, db: Session) -> list[Comment]:
-    comments = db.query(Comment).filter(Comment.author_id == author_id).all()
+    comments = db.query(Comment).filter(Comment.user_id == author_id).all()
     return comments
 
 
