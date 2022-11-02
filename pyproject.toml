@@ -18,6 +18,7 @@ mypy = "*"
 pre-commit = "*"
 pytest = "*"
 isort = "*"
+requests = "^2.28.1"
 
 [build-system]
 requires = ["poetry-core"]
