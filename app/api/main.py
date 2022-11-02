@@ -3,15 +3,14 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from app.crud import articles, comments, users
-from app.db.base_class import Base
-from app.db.session import engine, get_db
+from app.db.init_db import init_db
+from app.db.session import get_db
 from app.models import Article, Comment, User
 from app.schemas.articles import ArticleCreate, ArticleResponse
 from app.schemas.comments import CommentCreate, CommentResponse
 from app.schemas.users import UserCreate, UserResponse
 
-Base.metadata.create_all(bind=engine)
-
+init_db()
 app = FastAPI()
 
 
