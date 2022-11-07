@@ -24,6 +24,10 @@ def get_article_by_user_id(db: Session, user_id: int) -> list[Article]:
     return db.query(Article).filter(Article.user_id == user_id).all()
 
 
+def get_article_by_article_id(db: Session, article_id: int) -> Article:
+    return db.query(Article).filter(Article.id == article_id).first()
+
+
 def delete_article_by_id(article_id: int, db: Session) -> int:
     article = db.query(Article).filter(Article.id == article_id)
     if not article:
@@ -34,9 +38,9 @@ def delete_article_by_id(article_id: int, db: Session) -> int:
 
 
 def update_article(db: Session, article_id: int, article: ArticleCreate) -> int:
-    db_article = db.query(Article).filter(Article.id == article_id).get()
+    db_article = db.query(Article).filter(Article.id == article_id)
     if not db_article:
         return 0
-    db_article.update(article.__dict__)
+    db_article.update(article.dict())
     db.commit()
     return 1
