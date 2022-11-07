@@ -7,8 +7,8 @@ from app.models.base import BaseMixin
 
 class Article(Base, BaseMixin):
 
-    title = Column(String)
-    content = Column(String)
+    title = Column(String(50))
+    content = Column(String(255))
     user_id = Column(Integer, ForeignKey("user.id"))
     user = relationship("User", back_populates="articles")
     comments = relationship("Comment", back_populates="article")
