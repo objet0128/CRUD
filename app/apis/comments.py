@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.crud import comments
@@ -14,9 +14,12 @@ def create_comment(article_id: int, user_id: int, comment: CommentCreate, db: Se
     return comments.create_comment(article_id=article_id, user_id=user_id, comment=comment, db=db)
 
 
-@router.get("/{comment_id}", response_model=CommentResponse)
-def get_comment_by_author(author_id: int, db: Session = Depends(get_db)) -> list[Comment]:
-    return comments.get_comments_by_author(author_id, db)
+@router.get("/{comment_id}", response_model=list[CommentResponse])
+def get_comments_by_author(author_id: int, db: Session = Depends(get_db)) -> list[Comment]:
+    db_comments = comments.get_comments_by_author(author_id, db)
+    if db_comments is None:
+        raise HTTPException(status_code=404, detail="Comments not exist")
+    return db_comments
 
 
 @router.delete("/{comment_id}")

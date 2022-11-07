@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.crud import articles
@@ -16,17 +16,26 @@ def create_article(user_id: int, article: ArticleCreate, db: Session = Depends(g
 
 @router.get("/", response_model=list[ArticleResponse])
 def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)) -> list[Article]:
-    return articles.get_articles(db, skip=skip, limit=limit)
+    db_articles = articles.get_articles(db, skip=skip, limit=limit)
+    if db_articles is None:
+        raise HTTPException(status_code=404, detail="Articles not exist")
+    return db_articles
 
 
 @router.get("/{user_id}/", response_model=list[ArticleResponse])
 def get_articles_by_user_id(user_id: int, db: Session = Depends(get_db)) -> list[Article]:
-    return articles.get_article_by_user_id(user_id=user_id, db=db)
+    db_articles = articles.get_article_by_user_id(user_id=user_id, db=db)
+    if db_articles is None:
+        raise HTTPException(status_code=404, detail="Articles not exist")
+    return db_articles
 
 
 @router.get("/{article_id}", response_model=ArticleResponse)
 def get_article_by_article_id(article_id: int, db: Session = Depends(get_db)) -> Article:
-    return articles.get_article_by_article_id(db, article_id)
+    db_article = articles.get_article_by_article_id(db, article_id)
+    if db_article is None:
+        raise HTTPException(status_code=404, detail="Article not exist")
+    return db_article
 
 
 @router.delete("/{article_id}")

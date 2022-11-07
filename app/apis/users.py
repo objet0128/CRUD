@@ -20,6 +20,8 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)) -> User:
 @router.get("/", response_model=list[UserResponse])
 def get_user_list(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)) -> list[User]:
     user_list = users.get_users(db, skip=skip, limit=limit)
+    if user_list is None:
+        raise HTTPException(status_code=404, detail="Not exist")
     return user_list
 
 
