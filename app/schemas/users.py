@@ -5,7 +5,7 @@ from app.schemas.comments import CommentResponse
 
 
 class UserBase(BaseModel):
-    email: str
+    email: str | None = None
     information: str | None = None
 
 
