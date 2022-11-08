@@ -2,12 +2,12 @@ from fastapi.testclient import TestClient
 
 
 def test_get_user_list(client: TestClient):
-    r = client.get("/users/")
-    print(r.json())
+    response = client.get("/users/")
+    print(response.json())
 
 
 def test_create_user(client: TestClient):
-    response = client.post("/users/", json={"email": "tedst@gmail.com", "information": "string", "password": "string"})
+    response = client.post("/users/", json={"email": "test@gmail.com", "information": "string", "password": "string"})
     assert response.status_code == 200, response.text
     data = response.json()
     assert data["email"] == "test@gmail.com"
