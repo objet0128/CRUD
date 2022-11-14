@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app.models import Article
-from app.schemas.articles import ArticleCreate
+from CRUD.models import Article
+from CRUD.schemas.articles import ArticleCreate
 
 
 def create_article(user_id: int, db: Session, article: ArticleCreate) -> Article:

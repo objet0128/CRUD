@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.schemas.comments import CommentResponse
+from CRUD.schemas.comments import CommentResponse
 
 
 class ArticleBase(BaseModel):

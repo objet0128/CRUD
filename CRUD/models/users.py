@@ -3,8 +3,8 @@ import re
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, validates
 
-from app.db.base_class import Base
-from app.models.base import BaseMixin
+from CRUD.db.base_class import Base
+from CRUD.models.base import BaseMixin
 
 
 class User(Base, BaseMixin):
