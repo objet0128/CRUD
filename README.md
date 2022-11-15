@@ -1,22 +1,27 @@
-#  Goal
-- **understanding of FastAPI**
+#  CRUD
+CRUD is a simple application for learn FastAPI
 
 
 
 
-## 사용 기술
+## pre-requirements
 
-- [FastAPI](https://github.com/tiangolo/fastapi)
 - python 3.10.7
+- poetry
 
-### tools
+## How to setup?
+This project need poetry to run.
+1. `poetry install`
+2. `poetry shell`
+3. run `pre-commit install` install to set up the git hook scripts
 
-- [black](https://github.com/psf/black)
-- [isort](https://github.com/PyCQA/isort)
-- [pycln](https://github.com/hadialqattan/pycln)
+## How to run?
+Run the server with:
+
+`uvicorn CRUD.main:app --reload`
 
 
-## directory
+## project structure
 
 
 <pre>
