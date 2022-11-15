@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from CRUD.apis.users import get_user
 from CRUD.crud import articles
 from CRUD.db.session import get_db
 from CRUD.models import Article
@@ -11,6 +12,8 @@ router = APIRouter()
 
 @router.post("/{user_id}/", response_model=ArticleResponse)
 def create_article(user_id: int, article: ArticleCreate, db: Session = Depends(get_db)) -> Article:
+    if get_user(user_id=id, db=db) is None:
+        raise HTTPException(status_code=404, detail="User not exist")
     return articles.create_article(user_id, db, article)
 
 
