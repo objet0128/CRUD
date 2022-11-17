@@ -8,7 +8,10 @@ format:  ## 🔧 코드를 포매팅합니다.
 	black .
 	isort .
 
-
 .PHONY: test
 test:  ## 🧪 테스트 코드를 실행합니다.
 	pytest tests/
+
+.PHONY: run
+run:  ## run application
+	uvicorn CRUD.main:app --reload
