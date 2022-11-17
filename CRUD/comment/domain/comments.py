@@ -1,8 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
+from CRUD.core.base import BaseMixin
 from CRUD.db.base_class import Base
-from CRUD.models.base import BaseMixin
 
 
 class Comment(Base, BaseMixin):

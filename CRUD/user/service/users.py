@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from CRUD.models import User
+from CRUD.user.domain.users import User
 from CRUD.user.schema.users import UserCreate
 
 

@@ -2,12 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
-from CRUD.crud import comments
-from CRUD.crud.articles import get_article
-from CRUD.crud.users import get_user
+from CRUD.article.service.articles import get_article
+from CRUD.comment.domain.comments import Comment
+from CRUD.comment.schema.comments import CommentCreate, CommentResponse
+from CRUD.comment.service import comments
 from CRUD.db.session import get_db
-from CRUD.models import Comment
-from CRUD.schemas.comments import CommentCreate, CommentResponse
+from CRUD.user.service.users import get_user
 
 router = APIRouter()
 

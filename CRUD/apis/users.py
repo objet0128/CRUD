@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
-from CRUD.crud import users
 from CRUD.db.session import get_db
-from CRUD.models import User
-from CRUD.schemas.users import UserCreate, UserResponse
+from CRUD.user.domain.users import User
+from CRUD.user.schema.users import UserCreate, UserResponse
+from CRUD.user.service import users
 
 router = APIRouter()
 
