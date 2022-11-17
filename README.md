@@ -62,4 +62,6 @@ Run the server with:
 
 ![This is an image](img/erd.png)
 
+## Layered Architecture
 
+![layered Architecture image](img/mermaid-diagram-2022-11-17-163419.png)
