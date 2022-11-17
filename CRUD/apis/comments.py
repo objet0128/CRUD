@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from starlette import status
 
 from CRUD.crud import comments
+from CRUD.crud.articles import get_article
+from CRUD.crud.users import get_user
 from CRUD.db.session import get_db
 from CRUD.models import Comment
 from CRUD.schemas.comments import CommentCreate, CommentResponse
@@ -11,6 +14,12 @@ router = APIRouter()
 
 @router.post("/", response_model=CommentResponse)
 def create_comment(article_id: int, user_id: int, comment: CommentCreate, db: Session = Depends(get_db)) -> Comment:
+    db_user = get_user(db=db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not exist")
+    db_article = get_article(db=db, article_id=article_id)
+    if db_article is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not exist")
     return comments.create_comment(article_id=article_id, user_id=user_id, comment=comment, db=db)
 
 
@@ -18,10 +27,5 @@ def create_comment(article_id: int, user_id: int, comment: CommentCreate, db: Se
 def get_comments_by_author(author_id: int, db: Session = Depends(get_db)) -> list[Comment]:
     db_comments = comments.get_comments_by_author(author_id, db)
     if db_comments is None:
-        raise HTTPException(status_code=404, detail="Comments not exist")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Comments not exist")
     return db_comments
-
-
-@router.delete("/{comment_id}")
-def delete_comment(comment_id: int, db: Session = Depends(get_db)):
-    return comments.delete_comment(comment_id, db)
