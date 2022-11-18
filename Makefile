@@ -14,7 +14,7 @@ test:  ## 🧪 테스트 코드를 실행합니다.
 
 .PHONY: run
 run:  ## run application
-	uvicorn CRUD.main:app --reload
+	python CRUD/main.py
 
 
 .PHONY: clean
