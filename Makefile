@@ -15,3 +15,9 @@ test:  ## 🧪 테스트 코드를 실행합니다.
 .PHONY: run
 run:  ## run application
 	uvicorn CRUD.main:app --reload
+
+
+.PHONY: clean
+clean:
+	find . -type f -name "*.pyc" | xargs rm -fr
+	find . -type d -name __pycache__ |xargs rm -fr
