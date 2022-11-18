@@ -6,10 +6,11 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10.7"
-fastapi = "^0.85.1"
+python = "^3.10.8"
+fastapi = "^0.87.0"
 sqlalchemy = "^1.4.42"
 uvicorn = "^0.19.0"
+httpx = "^0.23.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "*"
@@ -18,7 +19,6 @@ mypy = "*"
 pre-commit = "*"
 pytest = "*"
 isort = "*"
-requests = "^2.28.1"
 commitizen = "^2.37.0"
 
 [build-system]
