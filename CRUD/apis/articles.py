@@ -12,7 +12,7 @@ from CRUD.user.service.users import get_user
 router = APIRouter()
 
 
-@router.post("/{user_id}/", response_model=ArticleResponse)
+@router.post("/{user_id}", response_model=ArticleResponse)
 def create_article(user_id: int, article: ArticleCreate, db: Session = Depends(get_db)) -> Article:
     db_user = get_user(db=db, user_id=user_id)
     if db_user is None:
@@ -28,7 +28,7 @@ def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)) 
     return db_articles
 
 
-@router.get("/{user_id}/", response_model=list[ArticleResponse])
+@router.get("/{user_id}", response_model=list[ArticleResponse])
 def get_articles_by_user_id(user_id: int, db: Session = Depends(get_db)) -> list[Article]:
     db_articles = articles.get_article_by_user_id(user_id=user_id, db=db)
     if db_articles is None:
@@ -49,8 +49,9 @@ def delete_article(article_id: int, db: Session = Depends(get_db)):
     db_article = get_article(db=db, article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not exist")
-
-    return articles.delete_article_by_id(article_id=article_id, db=db)
+    else:
+        articles.delete_article_by_id(article_id=article_id, db=db)
+    return {"status code": status.HTTP_200_OK}
 
 
 @router.put("/{article_id}")
@@ -58,4 +59,6 @@ def update_article(article_id: int, article: ArticleCreate, db: Session = Depend
     db_article = get_article(db=db, article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not exist")
-    return articles.update_article(db=db, article_id=article_id, article=article)
+    else:
+        update_article = articles.update_article(db=db, article_id=article_id, article=article)
+    return {"status code": status.HTTP_200_OK, "updated_article": update_article}
