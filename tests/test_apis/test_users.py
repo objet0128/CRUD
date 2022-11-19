@@ -7,7 +7,11 @@ def test_get_user_list(client: TestClient):
 
 
 def test_create_user(client: TestClient):
-    response = client.post("/users/", json={"email": "test@gmail.com", "information": "string", "password": "string"})
+    """
+    user를 생성한다.
+    실패시 HTTPException 400 발생
+    """
+    response = client.post("/users", json={"email": "test@gmail.com", "information": "string", "password": "string"})
     assert response.status_code == 200, response.text
     data = response.json()
     assert data["email"] == "test@gmail.com"
