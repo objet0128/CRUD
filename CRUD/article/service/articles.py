@@ -37,10 +37,10 @@ def delete_article_by_id(article_id: int, db: Session) -> int:
     return 1
 
 
-def update_article(db: Session, article_id: int, article: ArticleCreate) -> int:
+def update_article(db: Session, article_id: int, article: ArticleCreate) -> Article | None:
     db_article = db.query(Article).filter(Article.id == article_id)
     if not db_article:
         return 0
     db_article.update(article.dict())
     db.commit()
-    return 1
+    return db_article.first()
