@@ -21,3 +21,10 @@ run:  ## run application
 clean:
 	find . -type f -name "*.pyc" | xargs rm -fr
 	find . -type d -name __pycache__ |xargs rm -fr
+
+
+.PHONY: setup
+setup: ## setup application
+	poetry install
+	poetry shell
+	pre-commit install
