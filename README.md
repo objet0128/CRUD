@@ -4,10 +4,10 @@ CRUD is a simple application for learn FastAPI
 
 
 
-## pre-requirements
+## Pre-requirements
 
-- python 3.10.7
-- poetry
+- python >= 3.10.8
+- poetry 1.2.2
 
 ## How to setup?
 This project need poetry to run.
@@ -18,10 +18,36 @@ This project need poetry to run.
 ## How to run?
 Run the server with:
 
-`uvicorn CRUD.main:app --reload`
+`make run`
+
+## What you can do?
+http://0.0.0.0:8000/ (this is open api for test our application, you can execute api here)
+
+1. create user http://0.0.0.0:8000/docs#/users/create_user_users__post
+2. create article http://0.0.0.0:8000/docs#/articles/create_article_articles__user_id__post
+3. create comment http://0.0.0.0:8000/docs#/comments/create_comment_comments__post
+4. It also supports retrieve.
+
+### User scenario
+1. Create user
+2. Create article
+3. Create comment
+
+### Create user
+![this is api](img/Screenshot%202022-11-19%20at%2010.09.54%20AM.png)
+
+![this is result](img/Screenshot%202022-11-19%20at%2010.10.22%20AM.png)
+
+### Create article
+![this is api](img/Screenshot%202022-11-19%20at%2010.12.39%20AM.png)
+![this is result](img/Screenshot%202022-11-19%20at%2010.12.46%20AM.png)
+
+### Create comment
+![this is api](img/Screenshot%202022-11-19%20at%2010.17.25%20AM.png)
+![this is result](img/Screenshot%202022-11-19%20at%2010.17.31%20AM.png)
 
 
-## project structure
+## Project structure
 
 
 <pre>
@@ -62,6 +88,4 @@ Run the server with:
 
 ![This is an image](img/erd.png)
 
-## Layered Architecture
 
-![layered Architecture image](img/mermaid-diagram-2022-11-17-163419.png)
