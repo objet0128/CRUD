@@ -1,4 +1,6 @@
-from sqlalchemy.orm import Session
+from typing import List
+
+from sqlalchemy.orm import Session, joinedload
 
 from crud.db.model.articles import Article
 from crud.dto.article import ArticleUpdateDTO
@@ -9,8 +11,8 @@ class ArticleRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create_article(self, user_id: int, article: ArticleEntity) -> ArticleEntity:
-        db_article = Article(**article.dict(exclude={"user_id"}), user_id=user_id)
+    def create_article(self, author_id: int, article: ArticleEntity) -> ArticleEntity:
+        db_article = Article(**article.dict(exclude={"author_id"}), author_id=author_id)
         self.db.add(db_article)
         self.db.commit()
         self.db.refresh(db_article)
@@ -18,7 +20,7 @@ class ArticleRepository:
         return article
 
     def get_articles(self, skip: int = 0, limit: int = 100) -> list[ArticleEntity]:
-        db_articles = self.db.query(Article).offset(skip).limit(limit).all()
+        db_articles = self.db.query(Article).options(joinedload(Article.comments)).offset(skip).limit(limit).all()
         articles = [ArticleEntity(**article.__dict__) for article in db_articles]
         return articles
 
@@ -29,8 +31,11 @@ class ArticleRepository:
         article = ArticleEntity(**db_article.__dict__)
         return article
 
-    def get_articles_by_user_id(self, user_id: int) -> list[ArticleEntity]:
-        db_articles = self.db.query(Article).filter(Article.user_id == user_id).all()
+    def get_articles_by_author(self, author_id: int) -> list[ArticleEntity] | None:
+        db_articles = self.db.query(Article).options(joinedload(Article.comments)).filter(
+            Article.author_id == author_id).all()
+        if db_articles is None:
+            return
         articles = [ArticleEntity(**article.__dict__) for article in db_articles]
         return articles
 

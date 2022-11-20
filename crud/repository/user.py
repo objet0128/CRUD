@@ -1,7 +1,6 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, lazyload, joinedload
 
 from crud.db.model.users import User
-from crud.dto.user import UserCreateDTO
 from crud.entity.user import UserEntity
 
 
@@ -18,9 +17,8 @@ class UserRepository:
         user = UserEntity(**db_user.__dict__)
         return user
 
-    def get_user(self, user_id: int) -> UserEntity:
+    def get_user(self, user_id: int) -> UserEntity | None:
         db_user = self.db.query(User).filter(User.id == user_id).first()
-        print(db_user.__dict__)
         if db_user is None:
             return
         user = UserEntity(**db_user.__dict__)
@@ -33,7 +31,7 @@ class UserRepository:
         user = UserEntity(**db_user.__dict__)
         return user
 
-    def get_users(self, skip: int = 0, limit: int = 100) -> list[UserEntity]:
+    def get_user_list(self, skip: int = 0, limit: int = 100) -> list[UserEntity]:
         db_users = self.db.query(User).offset(skip).limit(limit).all()
         users = [UserEntity(**user.__dict__) for user in db_users]
         return users
