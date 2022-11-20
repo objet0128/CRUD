@@ -7,9 +7,9 @@ class ArticleService:
     def __init__(self, repository: ArticleRepository):
         self.repository = repository
 
-    def create_article(self, user_id: int, request: ArticleCreateDTO) -> ArticleEntity:
+    def create_article(self, author_id: int, request: ArticleCreateDTO) -> ArticleEntity:
         article_entity = ArticleEntity(**request.dict())
-        create_article = self.repository.create_article(article=article_entity, user_id=user_id)
+        create_article = self.repository.create_article(article=article_entity, author_id=author_id)
         return create_article
 
     def get_articles(self, skip: int, limit: int) -> list[ArticleEntity]:
@@ -18,8 +18,8 @@ class ArticleService:
     def get_article(self, article_id: int) -> ArticleEntity:
         return self.repository.get_article(article_id=article_id)
 
-    def get_articles_by_user_id(self, user_id: int) -> list[ArticleEntity]:
-        return self.repository.get_articles_by_user_id(user_id=user_id)
+    def get_articles_by_user_id(self, author_id: int) -> list[ArticleEntity]:
+        return self.repository.get_articles_by_author(author_id=author_id)
 
     def delete_article_by_id(self, article_id: int) -> int:
         return self.repository.delete_article_by_id(article_id=article_id)

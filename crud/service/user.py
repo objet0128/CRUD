@@ -18,5 +18,5 @@ class UserService:
     def get_user_by_email(self, email: str) -> UserEntity:
         return self.repository.get_user_by_email(email=email)
 
-    def get_users(self, skip: int, limit: int) -> list[UserEntity]:
-        return self.repository.get_users(skip=skip, limit=limit)
+    def get_user_list(self, skip: int, limit: int) -> list[UserEntity]:
+        return self.repository.get_user_list(skip=skip, limit=limit)
