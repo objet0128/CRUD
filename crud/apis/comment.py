@@ -4,7 +4,6 @@ from starlette import status
 
 from crud.db.session import get_db
 from crud.dto.comment import CommentCreateDTO, CommentResponseDTO
-from crud.entity.comment import CommentEntity
 from crud.repository.article import ArticleRepository
 from crud.repository.comment import CommentRepository
 from crud.repository.user import UserRepository
@@ -30,8 +29,9 @@ def create_comment(article_id: int, user_id: int, comment: CommentCreateDTO, db:
 
 
 @router.get("/{author_id}", response_model=list[CommentResponseDTO])
-def get_comments_by_author(author_id: int, db: Session = Depends(get_db)) -> list[CommentEntity]:
+def get_comments_by_author(author_id: int, db: Session = Depends(get_db)):
     db_comments = CommentService(CommentRepository(db=db)).get_comments_by_author(author_id=author_id)
     if db_comments is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Comments not exist")
-    return db_comments
+    comment_list = [CommentResponseDTO(**comment.dict()) for comment in db_comments]
+    return comment_list

@@ -13,13 +13,13 @@ from crud.service.user import UserService
 router = APIRouter()
 
 
-@router.post("/{user_id}", response_model=ArticleResponseDTO)
-def create_article(user_id: int, request: ArticleCreateDTO, db: Session = Depends(get_db)):
-    db_user = UserService(UserRepository(db=db)).get_user(user_id=user_id)
+@router.post("/{author_id}", response_model=ArticleResponseDTO)
+def create_article(author_id: int, request: ArticleCreateDTO, db: Session = Depends(get_db)):
+    db_user = UserService(UserRepository(db=db)).get_user(user_id=author_id)
     if db_user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not exist")
         # return JSONResponse(status_code=404, content="User not exist")
-    article = ArticleService(ArticleRepository(db=db)).create_article(user_id=user_id, request=request)
+    article = ArticleService(ArticleRepository(db=db)).create_article(user_id=author_id, request=request)
     return ArticleResponseDTO(**article.dict())
 
 
@@ -32,9 +32,9 @@ def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return article_list
 
 
-@router.get("/{user_id}", response_model=list[ArticleResponseDTO])
-def get_articles_by_user_id(user_id: int, db: Session = Depends(get_db)):
-    db_articles = ArticleService(ArticleRepository(db=db)).get_articles_by_user_id(user_id=user_id)
+@router.get("/{author_id}", response_model=list[ArticleResponseDTO])
+def get_articles_by_author(author_id: int, db: Session = Depends(get_db)):
+    db_articles = ArticleService(ArticleRepository(db=db)).get_articles_by_user_id(user_id=author_id)
     if db_articles is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Articles not exist")
     article_list = [ArticleResponseDTO(**article.dict()) for article in db_articles]
