@@ -14,8 +14,9 @@ class ArticleUpdateDTO(BaseModel):
 
 
 class ArticleResponseDTO(BaseModel):
-    id: str | None = None
-    user_id: int | None = None
+    id: int | None = None
+    author_id: int | None = None
+    title: str
     content: str
     comments: list[CommentResponseDTO] = []
 
