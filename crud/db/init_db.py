@@ -7,4 +7,4 @@ def init_db() -> None:
 
 
 def drop_db() -> None:
-    Base.metadata.drop_app(bind=engine)
+    Base.metadata.drop_all(bind=engine)
