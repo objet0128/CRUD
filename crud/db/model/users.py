@@ -11,8 +11,8 @@ class User(Base, BaseMixin):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     information = Column(String)
-    articles = relationship("Article", back_populates="user")
-    comments = relationship("Comment", back_populates="user")
+    articles = relationship("Article", back_populates="user", lazy="joined")
+    comments = relationship("Comment", back_populates="user", lazy="joined")
 
     @validates("email")
     def validate_email(self, key, value: str):
