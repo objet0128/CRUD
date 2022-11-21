@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session
 
 from crud.db.model.comment import Comment
@@ -16,7 +18,9 @@ class CommentRepository:
         comment = Comment(**db_comment.__dict__)
         return comment
 
-    def get_comments_by_author(self, author_id: int) -> list[Comment]:
+    def get_comments_by_author(self, author_id: int) -> list[Comment] | None:
         db_comments = self.db.query(Comment).filter(Comment.user_id == author_id).all()
+        if not db_comments:
+            return None
         comments = [Comment(**comment.__dict__) for comment in db_comments]
         return comments

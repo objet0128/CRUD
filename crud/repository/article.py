@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session, joinedload
 
 from crud.db.model.article import Article
@@ -17,21 +19,25 @@ class ArticleRepository:
         article = Article(**db_article.__dict__)
         return article
 
-    def get_articles(self, skip: int = 0, limit: int = 100) -> list[Article]:
+    def get_articles(self, skip: int = 0, limit: int = 100) -> list[Article] | None:
         db_articles = self.db.query(Article).options(joinedload(Article.comments)).offset(skip).limit(limit).all()
+        if not db_articles:
+            return None
         articles = [Article(**article.__dict__) for article in db_articles]
         return articles
 
     def get_article(self, article_id: int) -> Article | None:
         db_article = self.db.query(Article).filter(Article.id == article_id).first()
         if db_article is None:
-            return
+            return None
         article = Article(**db_article.__dict__)
         return article
 
-    def get_articles_by_author(self, author_id: int) -> list[Article]:
+    def get_articles_by_author(self, author_id: int) -> list[Article] | None:
         db_articles = self.db.query(Article).options(joinedload(Article.comments)).filter(
             Article.author_id == author_id).all()
+        if not db_articles:
+            return None
         articles = [Article(**article.__dict__) for article in db_articles]
         return articles
 
