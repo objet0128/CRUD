@@ -6,9 +6,9 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from CRUD.apis.api import api_router
-from CRUD.db.base_class import Base
-from CRUD.db.session import get_db
+from crud.apis.api import api_router
+from crud.db.base_class import Base
+from crud.db.session import get_db
 
 
 def start_application() -> FastAPI:

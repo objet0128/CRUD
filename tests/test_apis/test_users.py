@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 
+from crud.apis.user import router
+
 
 def test_get_user_list(client: TestClient):
     response = client.get("/users/")
@@ -23,3 +25,9 @@ def test_create_user(client: TestClient):
     data = response.json()
     assert data["email"] == "test@gmail.com"
     assert data["id"] == user_id
+
+
+def test_simple(client, monkeypatch):
+    def mock_response():
+        return
+    monkeypatch.setattr(router, "/", mock_response)
