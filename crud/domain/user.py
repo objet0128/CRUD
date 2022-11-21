@@ -4,7 +4,7 @@ from crud.dto.article import ArticleResponseDTO
 from crud.dto.comment import CommentResponseDTO
 
 
-class UserEntity(BaseModel):
+class User(BaseModel):
     id: int | None
     password: str
     email: str | None

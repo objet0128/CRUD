@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from crud.dto.comment import CommentResponseDTO
 
 
-class ArticleEntity(BaseModel):
+class Article(BaseModel):
     id: int | None
     title: str | None
     content: str | None
