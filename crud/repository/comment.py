@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from crud.db.model.comment import Comment
+from crud.domain.comment import Comment
 from crud.entity.comment import CommentEntity
 
 

@@ -1,6 +1,6 @@
-from sqlalchemy.orm import Session, lazyload, joinedload
+from sqlalchemy.orm import Session
 
-from crud.db.model.users import User
+from crud.domain.users import User
 from crud.entity.user import UserEntity
 
 

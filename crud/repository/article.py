@@ -1,8 +1,6 @@
-from typing import List
-
 from sqlalchemy.orm import Session, joinedload
 
-from crud.db.model.articles import Article
+from crud.domain.articles import Article
 from crud.dto.article import ArticleUpdateDTO
 from crud.entity.article import ArticleEntity
 
