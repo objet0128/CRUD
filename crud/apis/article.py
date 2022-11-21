@@ -26,7 +26,7 @@ def create_article(author_id: int, request: ArticleCreateDTO, db: Session = Depe
 @router.get("/", response_model=list[ArticleResponseDTO])
 def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     db_articles = ArticleService(ArticleRepository(db=db)).get_articles(skip=skip, limit=limit)
-    if len(db_articles) == 0 or db_articles is None:
+    if not db_articles or db_articles is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Articles not exist")
     article_list = [ArticleResponseDTO(**article.dict()) for article in db_articles]
     return article_list
@@ -35,7 +35,7 @@ def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 @router.get("/{author_id}", response_model=list[ArticleResponseDTO])
 def get_articles_by_author(author_id: int, db: Session = Depends(get_db)):
     db_articles = ArticleService(ArticleRepository(db=db)).get_articles_by_user_id(author_id=author_id)
-    if len(db_articles) == 0 or db_articles is None:
+    if not db_articles or db_articles is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Articles not exist")
     article_list = [ArticleResponseDTO(**article.dict()) for article in db_articles]
     return article_list

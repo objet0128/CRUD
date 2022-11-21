@@ -23,7 +23,7 @@ def create_user(user: UserCreateDTO, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[UserResponseDTO])
 def get_user_list(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     user_list = UserService(UserRepository(db=db)).get_user_list(skip=skip, limit=limit)
-    if user_list is None:
+    if not user_list:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Users not exist")
     user_list_response = [UserResponseDTO(**user.dict()) for user in user_list]
     return user_list_response
