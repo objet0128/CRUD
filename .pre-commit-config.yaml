@@ -23,7 +23,7 @@ repos:
       - id: isort
         name: isort (python)
         language_version: python3.10
-        args: [--settings-path=pyproject.toml]
+#        args: [--settings-path=pyproject.toml]
 -   repo: https://github.com/commitizen-tools/commitizen
     rev: master
     hooks:

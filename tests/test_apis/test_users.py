@@ -25,9 +25,3 @@ def test_create_user(client: TestClient):
     data = response.json()
     assert data["email"] == "test@gmail.com"
     assert data["id"] == user_id
-
-
-def test_simple(client, monkeypatch):
-    def mock_response():
-        return
-    monkeypatch.setattr(router, "/", mock_response)
