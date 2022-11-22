@@ -8,8 +8,8 @@ class CommentCreateDTO(BaseModel):
 class CommentResponseDTO(BaseModel):
     id: int
     comment: str
-    user_id: int | None
-    article_id: int | None
+    user_id: int
+    article_id: int
 
     class Config:
         orm_mode = True
