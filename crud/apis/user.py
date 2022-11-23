@@ -10,7 +10,7 @@ from crud.service.user import UserService
 router = APIRouter()
 
 
-@router.post("/", response_model=UserResponseDTO)
+@router.post("/", response_model=UserResponseDTO, status_code=status.HTTP_201_CREATED)
 def create_user(user: UserCreateDTO, db: Session = Depends(get_db)):
     exist_user = UserService(UserRepository(db=db)).get_user_by_email(email=user.email)
     if exist_user:

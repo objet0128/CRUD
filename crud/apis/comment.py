@@ -14,7 +14,7 @@ from crud.service.user import UserService
 router = APIRouter()
 
 
-@router.post("/", response_model=CommentResponseDTO)
+@router.post("/", response_model=CommentResponseDTO, status_code=status.HTTP_201_CREATED)
 def create_comment(article_id: int, user_id: int, comment: CommentCreateDTO, db: Session = Depends(get_db)):
     db_user = UserService(UserRepository(db=db)).get_user(user_id=user_id)
     if db_user is None:

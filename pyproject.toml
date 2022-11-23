@@ -36,6 +36,8 @@ max-complexity = 20
 [tool.mypy]
 ignore_missing_imports = true
 
+[tool.isort]
+profile = "black"
 
 [tool.commitizen]
 name = "cz_conventional_commits"

@@ -3,8 +3,7 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from crud.db.session import get_db
-from crud.dto.article import (ArticleCreateDTO, ArticleResponseDTO,
-                              ArticleUpdateDTO)
+from crud.dto.article import ArticleCreateDTO, ArticleResponseDTO, ArticleUpdateDTO
 from crud.repository.article import ArticleRepository
 from crud.repository.user import UserRepository
 from crud.service.article import ArticleService
@@ -13,7 +12,7 @@ from crud.service.user import UserService
 router = APIRouter()
 
 
-@router.post("/{author_id}", response_model=ArticleResponseDTO)
+@router.post("/{author_id}", response_model=ArticleResponseDTO, status_code=status.HTTP_201_CREATED)
 def create_article(author_id: int, request: ArticleCreateDTO, db: Session = Depends(get_db)):
     db_user = UserService(UserRepository(db=db)).get_user(user_id=author_id)
     if db_user is None:
