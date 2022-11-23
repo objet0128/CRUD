@@ -89,3 +89,6 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 ![This is an image](img/erd.png)
 
 
+## Class diagram
+
+![this is an image](img/mermaid-diagram-2022-11-23-105422.png)
