@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from crud.apis import article, comment, user
+from crud.apis.v1.endpoints import article, comment, user
 
 api_router = APIRouter()
 api_router.include_router(article.router, prefix="/articles", tags=["articles"])
