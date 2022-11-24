@@ -1,7 +1,5 @@
 from fastapi.testclient import TestClient
 
-from crud.apis.user import router
-
 
 def test_get_user_list(client: TestClient):
     response = client.get("/users/")
