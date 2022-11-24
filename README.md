@@ -52,35 +52,67 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 
 <pre>
 .
+├── CHANGELOG.md
+├── Makefile
 ├── README.md
-├── app
-│   ├── init.py
-│   ├── api
-│   │   ├── init.py
-│   │   ├── main.py
-│   │   └── sql_app.db
-│   ├── crud
-│   │   ├── init.py
-│   │   ├── articles.py
-│   │   ├── comments.py
-│   │   └── users.py
+├── crud
+│   ├── __init__.py
+│   ├── apis
+│   │   ├── __init__.py
+│   │   └── v1
+│   │       ├── __init__.py
+│   │       ├── api.py
+│   │       └── endpoints
+│   │           ├── __init__.py
+│   │           ├── article.py
+│   │           ├── comment.py
+│   │           └── user.py
 │   ├── db
-│   │   ├── init.py
-│   │   ├── base_class.py
-│   │   └── session.py
-│   ├── models
-│   │   ├── init.py
-│   │   ├── articles.py
+│   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── comments.py
-│   │   └── users.py
-│   └── schemas
-│       ├── init.py
-│       ├── articles.py
-│       ├── comments.py
-│       └── users.py
+│   │   ├── base_class.py
+│   │   ├── init_db.py
+│   │   ├── model
+│   │   │   ├── __init__.py
+│   │   │   ├── article.py
+│   │   │   ├── comment.py
+│   │   │   └── user.py
+│   │   └── session.py
+│   │  
+│   ├── dto
+│   │   ├── __init__.py
+│   │   ├── article.py
+│   │   ├── comment.py
+│   │   └── user.py
+│   ├── main.py
+│   ├── repository
+│   │   ├── __init__.py
+│   │   ├── article.py
+│   │   ├── comment.py
+│   │   └── user.py
+│   ├── schema
+│   │   ├── __init__.py
+│   │   ├── article.py
+│   │   ├── comment.py
+│   │   └── user.py
+│   └── service
+│       ├── __init__.py
+│       ├── article.py
+│       ├── comment.py
+│       └── user.py
+│  
 ├── poetry.lock
-└── pyproject.toml
+├── pyproject.toml
+└── tests
+    ├── __init__.py
+    ├── conftest.py
+    └── test_apis
+        ├── __init__.py
+        ├── test_articles.py
+        ├── test_comments.py
+        ├── test_users.py
+        └── test_users_unit.py
+
 </pre>
 
 ## DB ERD
