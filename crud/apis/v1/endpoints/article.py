@@ -25,8 +25,8 @@ def create_article(author_id: int, request: ArticleCreateDTO, db: Session = Depe
 @router.get("/", response_model=list[ArticleResponseDTO])
 def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     db_articles = ArticleService(ArticleRepository(db=db)).get_articles(skip=skip, limit=limit)
-    if not db_articles or db_articles is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Articles not exist")
+    if not db_articles:
+        return []
     article_list = [ArticleResponseDTO(**article.dict()) for article in db_articles]
     return article_list
 
@@ -34,13 +34,13 @@ def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 @router.get("/{author_id}", response_model=list[ArticleResponseDTO])
 def get_articles_by_author(author_id: int, db: Session = Depends(get_db)):
     db_articles = ArticleService(ArticleRepository(db=db)).get_articles_by_user_id(author_id=author_id)
-    if not db_articles or db_articles is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Articles not exist")
+    if not db_articles:
+        return []
     article_list = [ArticleResponseDTO(**article.dict()) for article in db_articles]
     return article_list
 
 
-@router.delete("/{article_id}")
+@router.delete("/{article_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_article(article_id: int, db: Session = Depends(get_db)):
     db_article = ArticleService(ArticleRepository(db=db)).get_article(article_id=article_id)
     if db_article is None:
@@ -50,10 +50,9 @@ def delete_article(article_id: int, db: Session = Depends(get_db)):
     return {"status code": status.HTTP_200_OK}
 
 
-@router.put("/{article_id}")
+@router.put("/{article_id}", status_code=status.HTTP_204_NO_CONTENT)
 def update_article(article_id: int, article: ArticleUpdateDTO, db: Session = Depends(get_db)):
     db_article = ArticleService(ArticleRepository(db=db)).get_article(article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not exist")
-    updated_article = ArticleService(ArticleRepository(db=db)).update_article(article_id=article_id, request=article)
-    return {"status code": status.HTTP_200_OK, "updated_article": updated_article}
+    ArticleService(ArticleRepository(db=db)).update_article(article_id=article_id, request=article)
