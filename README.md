@@ -30,8 +30,16 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 
 ### User scenario
 1. Create user
-2. Create article
-3. Create comment
+2. Can get user list
+3. Can get user by user_id
+4. Create article
+5. Can update article
+6. Can delete article
+7. Can get articles
+8. Can get articles by author_id
+9. Create comment
+10. Can get comments by author_id
+
 
 ### Create user
 ![this is api](img/Screenshot%202022-11-19%20at%2010.09.54%20AM.png)
@@ -46,6 +54,13 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 ![this is api](img/Screenshot%202022-11-19%20at%2010.17.25%20AM.png)
 ![this is result](img/Screenshot%202022-11-19%20at%2010.17.31%20AM.png)
 
+### Update article
+![this is image](img/img.png)
+![this is image](img/img_1.png)
+
+### Delete article
+![this is image](img/img_2.png)
+![this is image](img/img_3.png)
 
 ## Project structure
 
@@ -59,6 +74,14 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 │   ├── __init__.py
 │   ├── apis
 │   │   ├── __init__.py
+│   │   ├── request
+│   │   │   ├── article.py
+│   │   │   ├── comment.py
+│   │   │   └── user.py
+│   │   ├── response
+│   │   │   ├── article.py
+│   │   │   ├── comment.py
+│   │   │   └── user.py
 │   │   └── v1
 │   │       ├── __init__.py
 │   │       ├── api.py
@@ -78,12 +101,6 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 │   │   │   ├── comment.py
 │   │   │   └── user.py
 │   │   └── session.py
-│   │  
-│   ├── dto
-│   │   ├── __init__.py
-│   │   ├── article.py
-│   │   ├── comment.py
-│   │   └── user.py
 │   ├── main.py
 │   ├── repository
 │   │   ├── __init__.py
@@ -96,11 +113,10 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 │   │   ├── comment.py
 │   │   └── user.py
 │   └── service
-│       ├── __init__.py
-│       ├── article.py
-│       ├── comment.py
-│       └── user.py
-│  
+│       ├── __init__.py
+│       ├── article.py
+│       ├── comment.py
+│       └── user.py
 ├── poetry.lock
 ├── pyproject.toml
 └── tests
@@ -112,7 +128,6 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
         ├── test_comments.py
         ├── test_users.py
         └── test_users_unit.py
-
 </pre>
 
 ## DB ERD
@@ -123,4 +138,4 @@ http://0.0.0.0:8000/ (this is open api for test our application, you can execute
 
 ## Class diagram
 
-![This is an Image](img/mermaid-diagram-2022-11-23-191222.png)
+![This is an Image](img/mermaid.png)
