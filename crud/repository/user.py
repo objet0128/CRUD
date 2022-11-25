@@ -10,7 +10,7 @@ class UserRepository:
 
     def create_user(self, user: UserSchema) -> UserSchema:
         fake_hashed_password = user.password + "asdftest"
-        db_user = User(email=user.email, password=fake_hashed_password, information=user.information)
+        db_user = User(email=user.email, password=fake_hashed_password, information=user.information)  # type: ignore
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)

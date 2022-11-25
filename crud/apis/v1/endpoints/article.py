@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
+from crud.apis.request.article import ArticleCreateDTO, ArticleUpdateDTO
+from crud.apis.response.article import ArticleResponseDTO
 from crud.db.session import get_db
-from crud.dto.article import ArticleCreateDTO, ArticleResponseDTO, ArticleUpdateDTO
 from crud.repository.article import ArticleRepository
 from crud.repository.user import UserRepository
 from crud.service.article import ArticleService

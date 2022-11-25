@@ -1,4 +1,4 @@
-from crud.dto.user import UserCreateDTO
+from crud.apis.request.user import UserCreateDTO
 from crud.repository.user import UserRepository
 from crud.schema.user import UserSchema
 

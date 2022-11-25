@@ -4,10 +4,12 @@ from crud.apis.response.article import ArticleResponseDTO
 from crud.apis.response.comment import CommentResponseDTO
 
 
-class UserSchema(BaseModel):
-    id: int | None
-    password: str | None
-    email: str | None
-    information: str | None
-    comments: list[CommentResponseDTO] = []
+class UserResponseDTO(BaseModel):
+    id: str
+    email: str
+    information: str
     articles: list[ArticleResponseDTO] = []
+    comments: list[CommentResponseDTO] = []
+
+    class Config:
+        orm_mode = True

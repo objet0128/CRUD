@@ -9,7 +9,7 @@ class CommentRepository:
         self.db = db
 
     def create_comment(self, article_id: int, user_id: int, comment: CommentSchema) -> CommentSchema:
-        db_comment = Comment(**comment.dict(exclude={"article_id", "user_id"}), article_id=article_id, user_id=user_id)
+        db_comment = Comment(**comment.dict(exclude={"article_id", "user_id"}), article_id=article_id, user_id=user_id)  # type: ignore
         self.db.add(db_comment)
         self.db.commit()
         self.db.refresh(db_comment)

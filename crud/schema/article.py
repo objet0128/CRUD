@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from crud.dto.comment import CommentResponseDTO
+from crud.apis.response.comment import CommentResponseDTO
 
 
 class ArticleSchema(BaseModel):

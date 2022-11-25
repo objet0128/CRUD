@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session, joinedload
 
+from crud.apis.request.article import ArticleUpdateDTO
 from crud.db.model.article import Article
-from crud.dto.article import ArticleUpdateDTO
 from crud.schema.article import ArticleSchema
 
 
@@ -10,7 +10,7 @@ class ArticleRepository:
         self.db = db
 
     def create_article(self, author_id: int, article: ArticleSchema) -> ArticleSchema:
-        db_article = Article(**article.dict(exclude={"author_id"}), author_id=author_id)
+        db_article = Article(**article.dict(exclude={"author_id"}), author_id=author_id)  # type: ignore
         self.db.add(db_article)
         self.db.commit()
         self.db.refresh(db_article)

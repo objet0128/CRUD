@@ -1,4 +1,4 @@
-from crud.dto.article import ArticleCreateDTO, ArticleUpdateDTO
+from crud.apis.request.article import ArticleCreateDTO, ArticleUpdateDTO
 from crud.repository.article import ArticleRepository
 from crud.schema.article import ArticleSchema
 

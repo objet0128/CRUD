@@ -1,4 +1,4 @@
-from crud.dto.comment import CommentCreateDTO
+from crud.apis.request.comment import CommentCreateDTO
 from crud.repository.comment import CommentRepository
 from crud.schema.comment import CommentSchema
 
