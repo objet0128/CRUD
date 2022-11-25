@@ -6,8 +6,8 @@ from crud.db.base_class import Base
 
 
 class User(Base, BaseMixin):
-    email = Column(String, unique=True, index=True)
-    password = Column(String)
-    information = Column(String)
+    email: str = Column(String, unique=True, index=True)
+    password: str = Column(String)
+    information: str = Column(String)
     articles = relationship("Article", back_populates="user", lazy="joined")
     comments = relationship("Comment", back_populates="user", lazy="joined")
