@@ -23,7 +23,7 @@ def create_article(author_id: int, request: ArticleCreateDTO, db: Session = Depe
     return ArticleResponseDTO(**article.dict())
 
 
-@router.get("/", response_model=list[ArticleResponseDTO])
+@router.get("", response_model=list[ArticleResponseDTO])
 def get_articles(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     db_articles = ArticleService(ArticleRepository(db=db)).get_articles(skip=skip, limit=limit)
     if not db_articles:
