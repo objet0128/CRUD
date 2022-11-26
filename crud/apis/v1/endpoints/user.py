@@ -12,11 +12,11 @@ router = APIRouter()
 
 
 @router.post("", response_model=UserResponseDTO, status_code=status.HTTP_201_CREATED)
-def create_user(user: UserCreateDTO, db: Session = Depends(get_db)):
-    exist_user = UserService(UserRepository(db=db)).get_user_by_email(email=user.email)
+def create_user(request: UserCreateDTO, db: Session = Depends(get_db)):
+    exist_user = UserService(UserRepository(db=db)).get_user_by_email(email=request.email)
     if exist_user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Already exist")
-    user = UserService(UserRepository(db=db)).create_user(request=user)
+    user = UserService(UserRepository(db=db)).create_user(request=request)
     user_response = UserResponseDTO(**user.dict())
     return user_response
 

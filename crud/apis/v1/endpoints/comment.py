@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.post("", response_model=CommentResponseDTO, status_code=status.HTTP_201_CREATED)
-def create_comment(article_id: int, user_id: int, comment: CommentCreateDTO, db: Session = Depends(get_db)):
+def create_comment(article_id: int, user_id: int, request: CommentCreateDTO, db: Session = Depends(get_db)):
     db_user = UserService(UserRepository(db=db)).get_user(user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not exist")
@@ -24,7 +24,7 @@ def create_comment(article_id: int, user_id: int, comment: CommentCreateDTO, db:
     if db_article is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not exist")
     comment = CommentService(CommentRepository(db=db)).create_comment(
-        article_id=article_id, user_id=user_id, request=comment
+        article_id=article_id, user_id=user_id, request=request
     )
     return CommentResponseDTO(**comment.dict())
 
