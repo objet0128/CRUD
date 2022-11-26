@@ -12,11 +12,11 @@ class UserService:
         user = self.repository.create_user(user_entity)
         return user
 
-    def get_user(self, user_id: int) -> UserSchema:
+    def get_user(self, user_id: int) -> UserSchema | None:
         return self.repository.get_user(user_id=user_id)
 
-    def get_user_by_email(self, email: str) -> UserSchema:
+    def get_user_by_email(self, email: str) -> UserSchema | None:
         return self.repository.get_user_by_email(email=email)
 
-    def get_user_list(self, skip: int, limit: int) -> list[UserSchema]:
+    def get_user_list(self, skip: int, limit: int) -> list[UserSchema] | None:
         return self.repository.get_user_list(skip=skip, limit=limit)

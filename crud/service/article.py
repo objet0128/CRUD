@@ -11,13 +11,13 @@ class ArticleService:
         article_entity = ArticleSchema(**request.dict())
         return self.repository.create_article(article=article_entity, author_id=author_id)
 
-    def get_articles(self, skip: int, limit: int) -> list[ArticleSchema]:
+    def get_articles(self, skip: int, limit: int) -> list[ArticleSchema] | None:
         return self.repository.get_articles(skip=skip, limit=limit)
 
-    def get_article(self, article_id: int) -> ArticleSchema:
+    def get_article(self, article_id: int) -> ArticleSchema | None:
         return self.repository.get_article(article_id=article_id)
 
-    def get_articles_by_user_id(self, author_id: int) -> list[ArticleSchema]:
+    def get_articles_by_user_id(self, author_id: int) -> list[ArticleSchema] | None:
         return self.repository.get_articles_by_author(author_id=author_id)
 
     def delete_article_by_id(self, article_id: int) -> int:
