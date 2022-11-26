@@ -1,3 +1,28 @@
+## v0.2.0 (2022-11-26)
+
+### Feat
+
+- **crud/db/model**: remove type hint
+- **crud/db/init_db.py**: add type: ignore
+- **crud/repository/comment.py,-user.py**: add type: ignore
+- **crud/tests/conftest.py**: add type: ignore
+- **crud/service**: change return type enable optional
+- change user: UserCreateDTO -> request: UserCreateDTO, comment: CommentCreateDTO
+- **crud/apis/v1**: add api prefix "v1" for api versioning and remove useless slash
+- **crud/db/model**: add type hint
+- change project structure
+- **crud/apis/v1/endpoints**: add http status code, add if condition
+- **tests/test_apis/test_users.py**: remove import router
+- **crud/apis**: add version through URI path
+- **crud/apis**: add http status code
+- change schema
+- **db/model/user.py**: remove email validator
+- change domain -> schema
+- **crud/repository**: change if condition
+- **crud/apis**: change if condition
+- change project structure
+- change structure db/model -> domain
+
 ## v0.1.0 (2022-11-21)
 
 ### Feat
