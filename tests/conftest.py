@@ -28,14 +28,14 @@ def app() -> Generator[FastAPI, Any, None]:
     this is for set up , and tear down a database
     create all tables before each test, and drop them again afterwards
     """
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine)  # type: ignore
     _app = start_application()
     yield _app
-    Base.metadata.drop_all(engine)
+    Base.metadata.drop_all(engine)  # type: ignore
 
 
 @pytest.fixture(scope="function")
-def db_session() -> Generator[SessionTesting, Any, None]:
+def db_session() -> Generator[SessionTesting, Any, None]:  # type: ignore
     """
     Creates a fresh sqlalchemy session for each test that operates in a
     transaction. The transaction is rolled back at the end of each test ensuring
@@ -59,7 +59,7 @@ def db_session() -> Generator[SessionTesting, Any, None]:
 
 
 @pytest.fixture(scope="function")
-def client(app: FastAPI, db_session: SessionTesting) -> Generator[TestClient, Any, None]:
+def client(app: FastAPI, db_session: SessionTesting) -> Generator[TestClient, Any, None]:  # type: ignore
     """
     Create a new FastAPI TestClient that uses the `db_session` fixture to override
     the `get_db` dependency that is injected into routes.
