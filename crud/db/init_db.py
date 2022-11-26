@@ -3,8 +3,8 @@ from crud.db.session import engine
 
 
 def init_db() -> None:
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)  # type: ignore
 
 
 def drop_db() -> None:
-    Base.metadata.drop_all(bind=engine)
+    Base.metadata.drop_all(bind=engine)  # type: ignore
